@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="lib/pin-chart.min.js"></script>
+    <title>PIN Chart Testing</title>
+</head>
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+        
+    </script>
+    <script>
+        async function fetchChart() {
+            let element = document.getElementById('myChart')
+            const url = 'https://api.coingecko.com/api/v3/coins/pay-it-now?sparkline=true';
+            const data = await fetch(url)
+            .then(res => { return res.json()})
+            .catch(err => console.log(err))
+            new PINChart(element, data.market_data.sparkline_7d.price)
+        }
+        fetchChart()
+    </script>
+</body>
+</html>

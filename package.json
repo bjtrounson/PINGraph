@@ -1,0 +1,38 @@
+{
+  "name": "pin-chart",
+  "version": "1.0.0",
+  "description": "Pay It Now Price Chart",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "lint": "./node_modules/.bin/eslint --fix dist/pin-chart.js"
+  },
+  "keywords": [
+    "Chart",
+    "Price",
+    "TypeScript",
+    "Crypto"
+  ],
+  "author": "Ben Trounson",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "chart.js": "^3.8.0",
+    "moment": "^2.29.4"
+  }
+}
