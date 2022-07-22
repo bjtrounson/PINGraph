@@ -4,28 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="lib/pin-chart.min.js"></script>
+    <script src="dist/pin-chart.min.js"></script>
+    <link rel="stylesheet" href="https://payitnow.io/assets/css/vendor.bundle.css?ver=1930">
+    <link rel="stylesheet" href="https://payitnow.io/assets/css/style-lobelia.css?ver=1930" id="changeTheme">
+    <link rel="stylesheet" href="https://payitnow.io/assets/css/theme.css?ver=1930">
     <title>PIN Chart Testing</title>
 </head>
 <body>
-    <div>
-        <canvas id="myChart"></canvas>
+    <div id="chart-container" style="position: relative;">
     </div>
     <script>
-        
-    </script>
-    <script>
         async function fetchChart() {
-            let element = document.getElementById('myChart')
             const url = 'https://api.coingecko.com/api/v3/coins/pay-it-now?sparkline=true';
             const data = await fetch(url)
-            .then(res => { return res.json()})
-            .catch(err => console.log(err))
-            new PINChart(element, data.market_data.sparkline_7d.price)
+            .then(res => {return res.json()})
+            return data;
         }
-        fetchChart()
+    </script>
+    <script>
+        let chart = null;
+        fetchChart().then( res => { 
+            let data = {
+                currentPrice: res.market_data.current_price.usd,
+                priceChangePercentage: {
+                    "24h": res.market_data.price_change_percentage_24h, 
+                    "7d": res.market_data.price_change_percentage_7d
+                },
+                priceData: res.market_data.sparkline_7d.price,
+                lastUpdated: res.last_updated
+            }
+            let element = document.getElementById('chart-container')
+            chart = new window.PINChart(element, data);
+            chart.createTitleBar(data)
+            chart.createTimelineButtons(data, chart)
+            PINChart.buttonChangeActive("7d", data)
+        });
+        
     </script>
 </body>
 </html>

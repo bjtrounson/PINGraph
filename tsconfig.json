@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
-      "target": "es2015",
+      "target": "es5",
       "module": "es2015",  
-      "moduleResolution": "node",
+      "lib": [ "es2015", "dom" ],
       "sourceMap": true,
-      "outDir": "dist",
-      "types": [ "moment" ]
+      //"declaration": true,
+      // Ensure that .d.ts files are created by tsc, but not .js files
+      //"emitDeclarationOnly": true,
+      // Ensure that Babel can safely transpile files in the TypeScript project
+      "moduleResolution": "node",
     }
 }
